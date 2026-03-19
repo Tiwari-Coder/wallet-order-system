@@ -207,6 +207,10 @@ All operations are handled using **database transactions** to ensure:
 * Atomic operations
 * No partial updates
 ---
+## Database Setup
+
+1. Create a MySQL database on your server.
+2. Import the provided `database/wallet_db.sql` file using phpMyAdmin.
 
 ## Testing
 
