@@ -1,226 +1,251 @@
-Wallet & Order Management System API
-📌 Project Overview
+# Wallet & Order Management System API
 
-This project is a backend service built using PHP (Laravel) and MySQL that simulates a wallet-based transaction system.
+## 📌 Project Overview
+
+This project is a backend service built using **PHP (Laravel)** and **MySQL** that simulates a wallet-based transaction system.
 
 It allows users to:
 
-Register and authenticate
+* Register and authenticate
+* Manage wallet balance
+* Perform wallet transactions
+* Create orders using wallet balance
 
-Manage wallet balance
+The system follows proper **database design, REST API structure, and transactional business logic**, similar to real-world fintech and e-commerce platforms.
 
-Perform wallet transactions
+## Tech Stack
 
-Create orders using wallet balance
+* PHP (Laravel Framework)
+* MySQL
+* REST APIs
+* Laravel Sanctum (Token Authentication)
+* Postman (API Testing)
 
-This system follows proper database design, REST API structure, and transactional business logic, similar to real-world fintech and e-commerce platforms.
+---
 
-🛠 Tech Stack
+## Database Design
 
-PHP (Laravel Framework)
+### Tables
 
-MySQL
+* `users`
+* `wallet_accounts`
+* `wallet_transactions`
+* `orders`
 
-REST APIs
+### Relationships
 
-Laravel Sanctum (Token Authentication)
+* One User → One Wallet Account
+* One Wallet → Many Transactions
+* One User → Many Orders
 
-Postman (API Testing)
+---
 
-📂 Database Design
-Tables:
+## Table Structure
 
-users
+### 🔹 users
 
-wallet_accounts
+* id
+* name
+* email
+* password
+* created_at
+* updated_at
 
-wallet_transactions
+### 🔹 wallet_accounts
 
-orders
+* id
+* user_id
+* balance
+* created_at
+* updated_at
 
-Relationships:
+### 🔹 wallet_transactions
 
-One User → One Wallet Account
+* id
+* user_id
+* amount
+* type (credit/debit)
+* reference_id
+* created_at
+* updated_at
 
-One Wallet → Many Transactions
+### 🔹 orders
 
-One User → Many Orders
+* id
+* user_id
+* brand_id (nullable)
+* amount
+* status
+* created_at
+* updated_at
 
-🧾 Table Structure
-users
+---
 
-id
+## Authentication APIs
 
-name
+### Register
 
-email
+**POST** `/api/auth/register`
 
-password
-
-created_at
-
-updated_at
-
-wallet_accounts
-
-id
-
-user_id
-
-balance
-
-created_at
-
-updated_at
-
-wallet_transactions
-
-id
-
-user_id
-
-amount
-
-type (credit/debit)
-
-reference_id
-
-created_at
-
-updated_at
-
-orders
-
-id
-
-user_id
-
-brand_id (nullable)
-
-amount
-
-status
-
-created_at
-
-updated_at
-
-🔐 Authentication APIs
-Register
-
-POST /api/auth/register
-
+```json
 {
   "name": "test",
   "email": "test@example.com",
   "password": "123456"
 }
-Login
+```
 
-POST /api/auth/login
+---
 
+### Login
+
+**POST** `/api/auth/login`
+
+```json
 {
   "email": "test@example.com",
   "password": "123456"
 }
+```
 
-Response:
+**Response:**
 
+```json
 {
   "access_token": "TOKEN",
   "token_type": "Bearer"
 }
-Get Authenticated User
+```
 
-GET /api/auth/me
+---
 
-Header:
+### Get Authenticated User
 
+**GET** `/api/auth/me`
+
+**Header:**
+
+```
 Authorization: Bearer TOKEN
-💰 Wallet APIs
-Get Balance
+```
 
-GET /api/wallet/balance
+---
 
-Response:
+## 💰 Wallet APIs
 
+### Get Balance
+
+**GET** `/api/wallet/balance`
+
+**Response:**
+
+```json
 {
   "user_id": 1,
   "balance": "800.00"
 }
-Deposit Money
+```
 
-POST /api/wallet/deposit
+---
 
+### Deposit Money
+
+**POST** `/api/wallet/deposit`
+
+```json
 {
   "amount": 1000
 }
-Get Transactions
+```
 
-GET /api/wallet/transactions
+---
 
-📦 Order APIs
-Create Order
+### Get Transactions
 
-POST /api/orders
+**GET** `/api/wallet/transactions`
 
+---
+
+## Order APIs
+
+### Create Order
+
+**POST** `/api/orders`
+
+```json
 {
   "amount": 200
 }
+```
 
-Response:
+**Response:**
 
+```json
 {
   "message": "Order created successfully",
   "balance": 800
 }
-Get All Orders
+```
 
-GET /api/orders
+---
 
-Get Order by ID
+### Get All Orders
 
-GET /api/orders/{id}
+**GET** `/api/orders`
 
+---
 
-🧪 Testing
+### Get Order by ID
 
-All APIs are tested using Postman.
+**GET** `/api/orders/{id}`
 
-Test cases covered:
+---
 
-Successful registration & login
+All operations are handled using **database transactions** to ensure:
 
-Wallet deposit
+* Data consistency
+* Atomic operations
+* No partial updates
+---
 
-Order creation
+## Testing
 
-Balance deduction
+All APIs have been tested using **Postman**.
 
-Insufficient balance handling
+### Covered Test Cases:
 
+* User registration & login
+* Wallet deposit
+* Order creation
+* Balance deduction
+* Insufficient balance handling
 
-🌐 Live Demo
+---
 
-👉 [Add your deployed link here]
+## Live Demo
 
-📌 Assumptions
+Not deployed yet
 
-Each user has only one wallet
+---
 
-Wallet balance is used for all transactions
+## Assumptions
 
-Orders can only be created if sufficient balance exists
+* Each user has only one wallet
+* Wallet balance is used for all transactions
+* Orders require sufficient balance
+* All transactions are recorded
 
-Transactions are recorded for every wallet activity
+---
 
-👩‍💻 Author
+## Author
 
-Suman Tiwari
+**Suman Tiwari**
 
-✅ Status
+---
 
-✔ All APIs implemented
-✔ Business logic verified
-✔ Fully tested and working
-✔ Ready for deployment 🚀
+## Status
+
+* ✔ All APIs implemented
+* ✔ Business logic verified
+* ✔ Fully tested and working
+* ✔ Ready for deployment 🚀
