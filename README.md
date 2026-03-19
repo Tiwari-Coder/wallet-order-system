@@ -131,7 +131,7 @@ Authorization: Bearer TOKEN
 
 ---
 
-## 💰 Wallet APIs
+## Wallet APIs
 
 ### Get Balance
 
