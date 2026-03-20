@@ -228,7 +228,12 @@ All APIs have been tested using **Postman**.
 
 ## Live Demo
 
-Not deployed yet
+(https://walletsystem.rf.gd/)
+
+This project is live on InfinityFree Free Hosting for demonstration purposes.
+APIs are fully functional and can be tested using Postman or any API client.
+For optimal performance and full POST API support, you can run the project locally or on any cloud/paid hosting.
+The system is designed with Laravel, MySQL, and follows best practices for wallet and order management.
 
 ---
 
