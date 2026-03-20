@@ -93,7 +93,18 @@ The system follows proper **database design, REST API structure, and transaction
   "email": "test@example.com",
   "password": "123456"
 }
-```
+
+Response:
+{
+    "message": "User registered successfully",
+    "user": {
+        "name": "test",
+        "email": "test@example.com",
+        "updated_at": "2026-03-19T09:06:11.000000Z",
+        "created_at": "2026-03-19T09:06:11.000000Z",
+        "id": 1
+    }
+}
 
 ---
 
@@ -112,12 +123,12 @@ The system follows proper **database design, REST API structure, and transaction
 
 ```json
 {
-  "access_token": "TOKEN",
-  "token_type": "Bearer"
+    "message": "Login successful",
+    "access_token": "1|buZYO5sewZcaLjIdaNCP9qMMnbnwJpp2N7HkCx4kb425e634",
+    "token_type": "Bearer"
 }
-```
 
----
+```
 
 ### Get Authenticated User
 
@@ -129,9 +140,37 @@ The system follows proper **database design, REST API structure, and transaction
 Authorization: Bearer TOKEN
 ```
 
----
-
 ## Wallet APIs
+
+### Deposit Money
+
+**POST** `/api/wallet/deposit`
+
+```json
+{
+  "amount": 1000
+}
+
+**Response:**
+Authorization: Bearer Token         WBObLAS1YmBMleLFQxR6BtBe6sbJYqMBPCuJSMaR9daf57ec
+{
+    "message": "Deposit successful",
+    "balance": 1000
+}
+
+```
+### Order
+**POST**   /api/orders
+{
+  "amount": 200
+}
+
+**Response:**
+{
+    "message": "Order created successfully",
+    "balance": 800
+}
+
 
 ### Get Balance
 
@@ -145,61 +184,37 @@ Authorization: Bearer TOKEN
   "balance": "800.00"
 }
 ```
-
----
-
-### Deposit Money
-
-**POST** `/api/wallet/deposit`
-
-```json
-{
-  "amount": 1000
-}
-```
-
----
-
-### Get Transactions
-
-**GET** `/api/wallet/transactions`
-
----
-
-## Order APIs
-
-### Create Order
-
-**POST** `/api/orders`
-
-```json
-{
-  "amount": 200
-}
-```
+### Get Balance
+**GET**   /api/orders
 
 **Response:**
+[
+    {
+        "id": 1,
+        "user_id": 1,
+        "brand_id": null,
+        "amount": "200.00",
+        "status": "pending",
+        "created_at": "2026-03-19T09:40:16.000000Z",
+        "updated_at": "2026-03-19T09:40:16.000000Z"
+    }
+]
 
-```json
-{
-  "message": "Order created successfully",
-  "balance": 800
+---
+  ## GET Order by IDs
+  GET  api/orders/1
+
+ **Response:**
+  {
+    "id": 1,
+    "user_id": 1,
+    "brand_id": null,
+    "amount": "200.00",
+    "status": "pending",
+    "created_at": "2026-03-19T09:40:16.000000Z",
+    "updated_at": "2026-03-19T09:40:16.000000Z"
 }
-```
 
----
-
-### Get All Orders
-
-**GET** `/api/orders`
-
----
-
-### Get Order by ID
-
-**GET** `/api/orders/{id}`
-
----
 
 All operations are handled using **database transactions** to ensure:
 
